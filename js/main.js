@@ -4,6 +4,7 @@ var config = {
     height: 256,
     backgroundColor: 'rgb(255, 255, 255)',
     pixelArt: true,
+    parent: '09ji2d0ijw',
     physics: {
         default: 'arcade',
         arcade: {
