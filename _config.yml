@@ -1,1 +1,5 @@
 theme: jekyll-theme-minimal
+title: "Grassbox arena"
+description: "not a game actually"
+show_downloads: "true"
+google_analytics: "UA-128664867-1"
