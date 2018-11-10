@@ -1,7 +1,7 @@
 var config = {
     type: Phaser.AUTO,
-    width: 256,
-    height: 256,
+    width: 1024,
+    height: 1024,
     backgroundColor: 'rgb(255, 255, 255)',
     pixelArt: true,
     parent: '09ji2d0ijw',
@@ -13,26 +13,27 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
-var map;
-var layer;
 
 function preload ()
 {
-    game.load.tilemap('default', 'tiled/default_map.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.image('tileset', 'img/grass_tileset_16x16.png');
 
-    //this.load.image('background', 'img/background.png');
+	this.load.image('tileset', 'img/grass_tileset_16x16.png');
+    this.load.tilemapCSV('light', 'tiled/default_map_light.csv');
+    this.load.tilemapCSV('normal', 'tiled/default_map_normal.csv');
 }
 
 function create ()
 {
-    map = game.add.tilemap('default');
-    map.addTilesetImage('grass', 'tileset');
 
-    layer = map.createLayer('World1');
-    layer.resizeWorld();
+    var map = this.make.tilemap({ key: 'light', tileWidth: 16, tileHeight: 16 });
+    var map2 = this.make.tilemap({ key: 'normal', tileWidth: 16, tileHeight: 16 });
 
-    //this.add.image(128, 128, 'background');
+    var tileset = map.addTilesetImage('tileset', null, 16, 16);
+    var tileset2 = map2.addTilesetImage('tileset', null, 16, 16);
+
+    var layer = map.createDynamicLayer(0, tileset, 0, 0);
+    var layer2 = map2.createDynamicLayer(0, tileset2, 0, 0);
+
 }
 
 function update ()
