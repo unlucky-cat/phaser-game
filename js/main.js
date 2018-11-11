@@ -1,5 +1,5 @@
 const LEVEL_SIZES = {
-    LEVEL_WIDTH_TILES: 30,
+    LEVEL_WIDTH_TILES: 20,
     LEVEL_HEIGHT_TILES: 20,
     TILE_WIDTH_PIXELS: 16,
     TILE_HEIGHT_PIXELS: 16,
@@ -146,11 +146,19 @@ var createBlank = function() {
         LEVEL_CONFIG.TILE_HEIGHT_PIXELS
     );
 
-    var layer = map.createBlankDynamicLayer(LEVEL_CONFIG.TILES_MAPPING.LIGHT_GRASS_LAYER.NAME, tileset);
+    var layer = map.createBlankDynamicLayer(
+        LEVEL_CONFIG.TILES_MAPPING.LIGHT_GRASS_LAYER.NAME, 
+        tileset);
 
     createBorders(map, layer);
 
-    map.weightedRandomize(1, 1, 28, 18, LEVEL_CONFIG.TILES_MAPPING.LIGHT_GRASS_LAYER.MIDDLE_TILE, layer);
+    map.weightedRandomize(
+        1, 
+        1, 
+        LEVEL_CONFIG.LEVEL_WIDTH_TILES - 2, 
+        LEVEL_CONFIG.LEVEL_HEIGHT_TILES - 2, 
+        LEVEL_CONFIG.TILES_MAPPING.LIGHT_GRASS_LAYER.MIDDLE_TILE, 
+        layer);
 }
 
 var createBorders = function(map, layer) {
