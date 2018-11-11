@@ -16,13 +16,24 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    preloadJSON.call(this);
+    //preloadJSON.call(this);
+    preloadBlank.call(this);
 }
 
 function create ()
 {
 
-    createJSON.call(this);
+    //createJSON.call(this);
+    createBlank.call(this);
+
+/*
+    this.add.text(16, 16, 'Click a tile to replace all instances with a plant.', {
+        fontSize: '18px',
+        padding: { x: 10, y: 5 },
+        backgroundColor: '#000000',
+        fill: '#ffffff'
+    }).setScrollFactor(0);
+*/
 }
 
 function update ()
@@ -41,6 +52,11 @@ var preloadJSON = function() {
     this.load.image('tileset', 'img/grass_tileset_16x16.png');
     
     this.load.tilemapTiledJSON('map', 'tiled/default_map_embedded_tileset.json');
+}
+
+var preloadBlank = function() {
+
+    this.load.image('tileset', 'img/grass_tileset_16x16.png');
 }
 
 var createCSV = function() {
@@ -63,4 +79,14 @@ var createJSON = function() {
 
     var layer1 = map.createDynamicLayer('light', tileset);
     var layer2 = map.createDynamicLayer('normal', tileset);
+}
+
+var createBlank = function() {
+
+    var map = this.make.tilemap({ tileWidth: 16, tileHeight: 16, width: 30*16, height: 20*16 });
+    var tileset = map.addTilesetImage('tileset', null, 16, 16);
+
+    var layer = map.createBlankDynamicLayer('Layer1', tileset);
+
+    layer.fill(6);
 }
