@@ -32,47 +32,73 @@ const LEVEL_CONFIG = {
     }
 };
 
-var config = {
-    type: Phaser.AUTO,
-    width: LEVEL_CONFIG.LEVEL_WIDTH_PIXELS,
-    height: LEVEL_CONFIG.LEVEL_HEIGHT_PIXELS,
-    backgroundColor: 'rgb(255, 255, 255)',
-    pixelArt: true,
-    parent: '09ji2d0ijw',
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
+var game;
+
+window.onload = function() {
+
+    var config = {
+        type: Phaser.AUTO,
+        width: LEVEL_CONFIG.LEVEL_WIDTH_PIXELS,
+        height: LEVEL_CONFIG.LEVEL_HEIGHT_PIXELS,
+        backgroundColor: 'rgb(255, 255, 255)',
+        pixelArt: true,
+        parent: '09ji2d0ijw',
+        scene: [bootGame, playGame]
+    };
+
+    game = new Phaser.Game(config);
+    window.focus();
+    resizeGame();
+    window.addEventListener("resize", resizeGame);
+}
+
+class bootGame extends Phaser.Scene{
+    constructor(){
+        super("BootGame");
     }
-};
+    preload(){
 
-var game = new Phaser.Game(config);
+        //preloadJSON.call(this);
+        preloadBlank.call(this);
+    }
+    create(){
+        this.scene.start("PlayGame");
+    }
+}
+class playGame extends Phaser.Scene{
+    constructor(){
+        super("PlayGame");
+    }
+    create(){
 
-function preload ()
-{
-    //preloadJSON.call(this);
-    preloadBlank.call(this);
+        //createJSON.call(this);
+        createBlank.call(this);
+
+        /*
+            this.add.text(16, 16, 'Click a tile to replace all instances with a plant.', {
+                fontSize: '18px',
+                padding: { x: 10, y: 5 },
+                backgroundColor: '#000000',
+                fill: '#ffffff'
+            }).setScrollFactor(0);
+        */
+    }
 }
 
-function create ()
-{
-
-    //createJSON.call(this);
-    createBlank.call(this);
-
-/*
-    this.add.text(16, 16, 'Click a tile to replace all instances with a plant.', {
-        fontSize: '18px',
-        padding: { x: 10, y: 5 },
-        backgroundColor: '#000000',
-        fill: '#ffffff'
-    }).setScrollFactor(0);
-*/
-}
-
-function update ()
-{
-
+function resizeGame(){
+    var canvas = document.querySelector("canvas");
+    var windowWidth = window.innerWidth;
+    var windowHeight = window.innerHeight;
+    var windowRatio = windowWidth / windowHeight;
+    var gameRatio = game.config.width / game.config.height;
+    if(windowRatio < gameRatio){
+        canvas.style.width = windowWidth + "px";
+        canvas.style.height = (windowWidth / gameRatio) + "px";
+    }
+    else{
+        canvas.style.width = (windowHeight * gameRatio) + "px";
+        canvas.style.height = windowHeight + "px";
+    }
 }
 
 var preloadCSV = function() {
