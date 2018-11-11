@@ -1,7 +1,7 @@
 var config = {
     type: Phaser.AUTO,
-    width: 1024,
-    height: 1024,
+    width: 480,
+    height: 320,
     backgroundColor: 'rgb(255, 255, 255)',
     pixelArt: true,
     parent: '09ji2d0ijw',
