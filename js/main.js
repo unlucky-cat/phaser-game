@@ -20,9 +20,9 @@ const LEVEL_CONFIG = {
             BOTTOM_TILE: 2,
             TOP_TILE: 34,
             MIDDLE_TILE: [
-                { index: 0, weight: 6 },
-                { index: 16, weight: 3 },
-                { index: 32, weight: 1 },
+                { index: 0, weight: 80 },
+                { index: 16, weight: 15 },
+                { index: 32, weight: 5 },
             ]
         }
     }
@@ -144,5 +144,28 @@ var createBlank = function() {
 
     var layer = map.createBlankDynamicLayer(LEVEL_CONFIG.TILES_MAPPING.LIGHT_GRASS_LAYER.NAME, tileset);
 
-    layer.fill(LEVEL_CONFIG.TILES_MAPPING.LIGHT_GRASS_LAYER.MIDDLE_TILE[0].index);
+    createBorders(layer);
+
+    map.weightedRandomize(1, 1, 28, 18, LEVEL_CONFIG.TILES_MAPPING.LIGHT_GRASS_LAYER.MIDDLE_TILE, layer);
+}
+
+var createBorders = function(layer) {
+
+    // top border
+    layer.fill(
+        LEVEL_CONFIG.TILES_MAPPING.LIGHT_GRASS_LAYER.TOP_TILE,
+        1, 
+        0, 
+        LEVEL_CONFIG.LEVEL_WIDTH_TILES - 2, 
+        1
+    );
+
+    // top border
+    layer.fill(
+        LEVEL_CONFIG.TILES_MAPPING.LIGHT_GRASS_LAYER.RIGHT_TILE,
+        LEVEL_CONFIG.LEVEL_WIDTH_TILES - 2, 
+        1, 
+        LEVEL_CONFIG.LEVEL_WIDTH_TILES - 1, 
+        LEVEL_CONFIG.LEVEL_HEIGHT_TILES - 2
+    );
 }
