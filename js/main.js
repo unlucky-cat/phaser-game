@@ -19,6 +19,10 @@ const LEVEL_CONFIG = {
             RIGHT_TILE: 17,
             BOTTOM_TILE: 2,
             TOP_TILE: 34,
+            TOP_LEFT_TILE: 4,
+            TOP_RIGHT_TILE: 5,
+            BOTTOM_LEFT_TILE: 20,
+            BOTTOM_RIGHT_TILE: 21,
             MIDDLE_TILE: [
                 { index: 0, weight: 80 },
                 { index: 16, weight: 15 },
@@ -144,28 +148,56 @@ var createBlank = function() {
 
     var layer = map.createBlankDynamicLayer(LEVEL_CONFIG.TILES_MAPPING.LIGHT_GRASS_LAYER.NAME, tileset);
 
-    createBorders(layer);
+    createBorders(map, layer);
 
     map.weightedRandomize(1, 1, 28, 18, LEVEL_CONFIG.TILES_MAPPING.LIGHT_GRASS_LAYER.MIDDLE_TILE, layer);
 }
 
-var createBorders = function(layer) {
+var createBorders = function(map, layer) {
+
+    var m = LEVEL_CONFIG.TILES_MAPPING.LIGHT_GRASS_LAYER;
+    var bottom = LEVEL_CONFIG.LEVEL_HEIGHT_TILES - 1;
+    var right = LEVEL_CONFIG.LEVEL_WIDTH_TILES - 1;
+
+    // corners
+    map.putTileAt(m.TOP_LEFT_TILE, 0, 0, layer);
+    map.putTileAt(m.TOP_RIGHT_TILE, right, 0, layer);
+    map.putTileAt(m.BOTTOM_LEFT_TILE, 0, bottom, layer);
+    map.putTileAt(m.BOTTOM_RIGHT_TILE, right, bottom, layer);
 
     // top border
     layer.fill(
-        LEVEL_CONFIG.TILES_MAPPING.LIGHT_GRASS_LAYER.TOP_TILE,
+        m.TOP_TILE,
         1, 
         0, 
         LEVEL_CONFIG.LEVEL_WIDTH_TILES - 2, 
         1
     );
 
-    // top border
+    // right border
     layer.fill(
-        LEVEL_CONFIG.TILES_MAPPING.LIGHT_GRASS_LAYER.RIGHT_TILE,
+        m.RIGHT_TILE,
         LEVEL_CONFIG.LEVEL_WIDTH_TILES - 2, 
         1, 
         LEVEL_CONFIG.LEVEL_WIDTH_TILES - 1, 
+        LEVEL_CONFIG.LEVEL_HEIGHT_TILES - 2
+    );
+
+    // bottom border
+    layer.fill(
+        m.BOTTOM_TILE,
+        1, 
+        LEVEL_CONFIG.LEVEL_HEIGHT_TILES - 2, 
+        LEVEL_CONFIG.LEVEL_WIDTH_TILES - 2, 
+        LEVEL_CONFIG.LEVEL_HEIGHT_TILES - 1
+    );
+
+    // left border
+    layer.fill(
+        m.LEFT_TILE,
+        0, 
+        1, 
+        1, 
         LEVEL_CONFIG.LEVEL_HEIGHT_TILES - 2
     );
 }
