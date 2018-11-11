@@ -40,7 +40,7 @@ var preloadCSV = function() {
 var preloadJSON = function() {
     this.load.image('tileset', 'img/grass_tileset_16x16.png');
     
-    this.load.tilemapTiledJSON('map', 'tiled/default_map_corrected.json');
+    this.load.tilemapTiledJSON('map', 'tiled/default_map_embedded_tileset.json');
 }
 
 var createCSV = function() {
