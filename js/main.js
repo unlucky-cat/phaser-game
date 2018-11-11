@@ -1,7 +1,37 @@
+const LEVEL_SIZES = {
+    LEVEL_WIDTH_TILES: 30,
+    LEVEL_HEIGHT_TILES: 20,
+    TILE_WIDTH_PIXELS: 16,
+    TILE_HEIGHT_PIXELS: 16,
+};
+
+const LEVEL_CONFIG = {
+    LEVEL_WIDTH_TILES: LEVEL_SIZES.LEVEL_WIDTH_TILES,
+    LEVEL_HEIGHT_TILES: LEVEL_SIZES.LEVEL_HEIGHT_TILES,
+    TILE_WIDTH_PIXELS: LEVEL_SIZES.TILE_WIDTH_PIXELS,
+    TILE_HEIGHT_PIXELS: LEVEL_SIZES.TILE_HEIGHT_PIXELS,
+    LEVEL_WIDTH_PIXELS: LEVEL_SIZES.TILE_WIDTH_PIXELS * LEVEL_SIZES.LEVEL_WIDTH_TILES,
+    LEVEL_HEIGHT_PIXELS: LEVEL_SIZES.TILE_HEIGHT_PIXELS * LEVEL_SIZES.LEVEL_HEIGHT_TILES,
+    TILES_MAPPING: {
+        LIGHT_GRASS_LAYER: {
+            NAME: "LightGrassLayer",
+            LEFT_TILE: 19,
+            RIGHT_TILE: 17,
+            BOTTOM_TILE: 2,
+            TOP_TILE: 34,
+            MIDDLE_TILE: [
+                { index: 0, weight: 6 },
+                { index: 16, weight: 3 },
+                { index: 32, weight: 1 },
+            ]
+        }
+    }
+};
+
 var config = {
     type: Phaser.AUTO,
-    width: 480,
-    height: 320,
+    width: LEVEL_CONFIG.LEVEL_WIDTH_PIXELS,
+    height: LEVEL_CONFIG.LEVEL_HEIGHT_PIXELS,
     backgroundColor: 'rgb(255, 255, 255)',
     pixelArt: true,
     parent: '09ji2d0ijw',
@@ -61,11 +91,27 @@ var preloadBlank = function() {
 
 var createCSV = function() {
 
-    var map = this.make.tilemap({ key: 'light', tileWidth: 16, tileHeight: 16 });
-    var map2 = this.make.tilemap({ key: 'normal', tileWidth: 16, tileHeight: 16 });
+    var map = this.make.tilemap({ 
+        key: 'light', 
+        tileWidth: LEVEL_CONFIG.TILE_WIDTH_PIXELS, 
+        tileHeight: LEVEL_CONFIG.TILE_HEIGHT_PIXELS });
 
-    var tileset = map.addTilesetImage('tileset', null, 16, 16);
-    var tileset2 = map2.addTilesetImage('tileset', null, 16, 16);
+    var map2 = this.make.tilemap({ 
+        key: 'normal', 
+        tileWidth: LEVEL_CONFIG.TILE_WIDTH_PIXELS, 
+        tileHeight: LEVEL_CONFIG.TILE_HEIGHT_PIXELS });
+
+    var tileset = map.addTilesetImage(
+        'tileset', 
+        null, 
+        LEVEL_CONFIG.TILE_WIDTH_PIXELS, 
+        LEVEL_CONFIG.TILE_HEIGHT_PIXELS);
+
+    var tileset2 = map2.addTilesetImage(
+        'tileset', 
+        null, 
+        LEVEL_CONFIG.TILE_WIDTH_PIXELS, 
+        LEVEL_CONFIG.TILE_HEIGHT_PIXELS);
 
     var layer = map.createDynamicLayer(0, tileset, 0, 0);
     var layer2 = map2.createDynamicLayer(0, tileset2, 0, 0);
@@ -83,10 +129,20 @@ var createJSON = function() {
 
 var createBlank = function() {
 
-    var map = this.make.tilemap({ tileWidth: 16, tileHeight: 16, width: 30*16, height: 20*16 });
-    var tileset = map.addTilesetImage('tileset', null, 16, 16);
+    var map = this.make.tilemap({ 
+        tileWidth: LEVEL_CONFIG.TILE_WIDTH_PIXELS, 
+        tileHeight: LEVEL_CONFIG.TILE_HEIGHT_PIXELS, 
+        width: LEVEL_CONFIG.LEVEL_WIDTH_PIXELS, 
+        height: LEVEL_CONFIG.LEVEL_HEIGHT_PIXELS,
+    });
+    var tileset = map.addTilesetImage(
+        'tileset', 
+        null, 
+        LEVEL_CONFIG.TILE_WIDTH_PIXELS, 
+        LEVEL_CONFIG.TILE_HEIGHT_PIXELS
+    );
 
-    var layer = map.createBlankDynamicLayer('Layer1', tileset);
+    var layer = map.createBlankDynamicLayer(LEVEL_CONFIG.TILES_MAPPING.LIGHT_GRASS_LAYER.NAME, tileset);
 
-    layer.fill(6);
+    layer.fill(LEVEL_CONFIG.TILES_MAPPING.LIGHT_GRASS_LAYER.MIDDLE_TILE[0].index);
 }
