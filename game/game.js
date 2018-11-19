@@ -104,14 +104,14 @@ function resizeGame(){
 var preloadCSV = function() {
     this.load.image('tileset', 'img/grass_tileset_16x16.png');
     
-    this.load.tilemapCSV('light', 'tiled/default_map_light.csv');
-    this.load.tilemapCSV('normal', 'tiled/default_map_normal.csv');
+    this.load.tilemapCSV('light', '../apps/tiled/default_map_light.csv');
+    this.load.tilemapCSV('normal', '../apps/tiled/default_map_normal.csv');
 }
 
 var preloadJSON = function() {
     this.load.image('tileset', 'img/grass_tileset_16x16.png');
     
-    this.load.tilemapTiledJSON('map', 'tiled/default_map_embedded_tileset.json');
+    this.load.tilemapTiledJSON('map', '../apps/tiled/default_map_embedded_tileset.json');
 }
 
 var preloadBlank = function() {
