@@ -34,6 +34,28 @@ const LEVEL_CONFIG = {
 
 var game;
 
+var generateRandomInteger = function(min , max) {
+
+    return Math.floor(Math.random() * (max-min) + min);
+}
+
+var weightedRandomNumber = function(weightedIndexes) {
+
+    var sum = 100; //weightedIndexes.reduce((acc, val) => acc + val.weight, 0);
+    const rnd = generateRandomInteger(0, sum);
+
+    var accumulator = 0;
+    var index = 0;
+
+    do {
+        
+        accumulator += weightedIndexes[index++].weight;
+    } 
+    while (accumulator < rnd);
+
+    return weightedIndexes[--index].index;
+}
+
 window.onload = function() {
 
     var config = {
@@ -132,7 +154,7 @@ var preloadSpriteSheet = function() {
     , LEVEL_CONFIG.TILE_HEIGHT_PIXELS);
 */
 
-    console.log('preloadSpriteSheet');
+    //console.log('preloadSpriteSheet');
 
     this.load.spritesheet('spritesheet', 
         'assets/img/grass_tileset_16x16.png',
@@ -293,7 +315,7 @@ var createSpriteSheet = function() {
             else if (col === bottom)
                 this.add.sprite(point.x, point.y, "spritesheet", m.RIGHT_TILE);
             else
-                this.add.sprite(point.x, point.y, "spritesheet", 0);
+                this.add.sprite(point.x, point.y, "spritesheet", weightedRandomNumber(m.MIDDLE_TILE));
         }
     }
 }
