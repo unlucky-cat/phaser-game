@@ -1,3 +1,6 @@
+# WebPack sources
+assets/js/
+
 # Logs
 logs
 *.log
