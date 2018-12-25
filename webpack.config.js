@@ -1,9 +1,12 @@
 const path = require('path');
 
 module.exports = {
-    entry: './assets/src/index.js',
+    entry: './project/index.js',
     output: {
-        path: path.resolve(__dirname, 'assets/dist/js/'),
+        path: path.resolve(__dirname, 'assets/js/'),
         filename: 'game.js',
+    },
+    devServer: {
+        contentBase: '.'
     }
 }

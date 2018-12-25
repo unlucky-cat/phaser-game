@@ -134,16 +134,16 @@ function getTilePosition(row, col) {
 }
 
 var preloadCSV = function() {
-    this.load.image('tileset', 'assets/dist/img/grass_tileset_16x16.png');
+    this.load.image('tileset', 'assets/img/grass_tileset_16x16.png');
     
-    this.load.tilemapCSV('light', 'assets/dist/apps/tiled/default_map_light.csv');
-    this.load.tilemapCSV('normal', 'assets/dist/apps/tiled/default_map_normal.csv');
+    this.load.tilemapCSV('light', 'assets/apps/tiled/default_map_light.csv');
+    this.load.tilemapCSV('normal', 'assets/apps/tiled/default_map_normal.csv');
 }
 
 var preloadJSON = function() {
-    this.load.image('tileset', 'assets/dist/img/grass_tileset_16x16.png');
+    this.load.image('tileset', 'assets/img/grass_tileset_16x16.png');
     
-    this.load.tilemapTiledJSON('map', 'assets/dist/apps/tiled/default_map_embedded_tileset.json');
+    this.load.tilemapTiledJSON('map', 'assets/apps/tiled/default_map_embedded_tileset.json');
 }
 
 var preloadSpriteSheet = function() {
@@ -157,14 +157,14 @@ var preloadSpriteSheet = function() {
     //console.log('preloadSpriteSheet');
 
     this.load.spritesheet('spritesheet', 
-        'assets/dist/img/grass_tileset_16x16.png',
+        'assets/img/grass_tileset_16x16.png',
         { frameWidth: 16, frameHeight: 16 }
     );
 }
 
 var preloadBlank = function() {
 
-    this.load.image('tileset', 'assets/dist/img/grass_tileset_16x16.png');
+    this.load.image('tileset', 'assets/img/grass_tileset_16x16.png');
 }
 
 var createCSV = function() {
