@@ -1,12 +1,19 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './project/index.js',
+    entry: './project/js/index.js',
     output: {
-        path: path.resolve(__dirname, 'assets/js/'),
-        filename: 'game.js',
+        path: path.resolve(__dirname, 'assets'),
+        filename: 'js/game.js',
     },
     devServer: {
-        contentBase: '.'
-    }
+        contentBase: './project'
+    },
+    plugins: [
+        /*new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: './project/index.html'
+        })*/
+    ]
 }
