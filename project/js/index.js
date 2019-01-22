@@ -1,3 +1,5 @@
+import weightedRandomSelector from './services/WeightedRandomSelector';
+
 const LEVEL_SIZES = {
     LEVEL_WIDTH_TILES: 60,
     LEVEL_HEIGHT_TILES: 60,
@@ -38,6 +40,7 @@ const LEVEL_CONFIG = {
 
 var game;
 
+/*
 var generateRandomInteger = function(min , max) {
 
     return Math.floor(Math.random() * (max-min) + min);
@@ -59,6 +62,7 @@ var weightedRandomNumber = function(weightedIndexes) {
 
     return weightedIndexes[--index].index;
 }
+*/
 
 window.onload = function() {
 
@@ -303,6 +307,8 @@ var createSpriteSheet = function() {
     var bottom = LEVEL_CONFIG.LEVEL_HEIGHT_TILES - 1;
     var right = LEVEL_CONFIG.LEVEL_WIDTH_TILES - 1;
 
+    const selector = new weightedRandomSelector(m.MIDDLE_TILE);
+
     for (let row = 0; row < LEVEL_CONFIG.LEVEL_WIDTH_TILES; row++) {
         for (let col = 0; col < LEVEL_CONFIG.LEVEL_HEIGHT_TILES; col++) {
             
@@ -326,7 +332,8 @@ var createSpriteSheet = function() {
             else if (col === bottom)
                 this.add.sprite(point.x, point.y, "spritesheet", m.RIGHT_TILE);
             else
-                this.add.sprite(point.x, point.y, "spritesheet", weightedRandomNumber(m.MIDDLE_TILE));
+                this.add.sprite(point.x, point.y, "spritesheet", selector.getNext());
+                //this.add.sprite(point.x, point.y, "spritesheet", weightedRandomNumber(m.MIDDLE_TILE));
         }
     }
 }
