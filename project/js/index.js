@@ -29,6 +29,10 @@ const LEVEL_CONFIG = {
                 { index: 32, weight: 5 },
             ]
         }
+    },
+    SPRITESHEET: {
+        NAME: "spritesheet",
+        FILEPATH: "assets/img/grass_tileset_16x16.png"
     }
 };
 
@@ -74,24 +78,47 @@ window.onload = function() {
     window.addEventListener("resize", resizeGame);
 }
 
-class bootGame extends Phaser.Scene{
+class bootGame extends Phaser.Scene {
     constructor(){
         super("BootGame");
     }
-    preload(){
+
+    preload() {
 
         //preloadJSON.call(this);
         //preloadBlank.call(this);
-        preloadSpriteSheet.call(this);
+        this.preloadSpriteSheet();
     }
-    create(){
+
+    create() {
         this.scene.start("PlayGame");
     }
+
+    preloadSpriteSheet() {
+    /*
+        this.load.spritesheet('spritesheet'
+        , 'assets/img/grass_tileset_16x16.png'
+        , LEVEL_CONFIG.TILE_WIDTH_PIXELS
+        , LEVEL_CONFIG.TILE_HEIGHT_PIXELS);
+    */
+
+    
+        this.load.spritesheet(
+            LEVEL_CONFIG.SPRITESHEET.NAME, 
+            LEVEL_CONFIG.SPRITESHEET.FILEPATH,
+            { 
+                frameWidth: LEVEL_CONFIG.TILE_WIDTH_PIXELS, 
+                frameHeight: LEVEL_CONFIG.TILE_HEIGHT_PIXELS 
+            }
+        );
+    }
 }
+
 class playGame extends Phaser.Scene{
     constructor(){
         super("PlayGame");
     }
+
     create(){
 
         //createJSON.call(this);
@@ -144,22 +171,6 @@ var preloadJSON = function() {
     this.load.image('tileset', 'assets/img/grass_tileset_16x16.png');
     
     this.load.tilemapTiledJSON('map', 'assets/apps/tiled/default_map_embedded_tileset.json');
-}
-
-var preloadSpriteSheet = function() {
-/*
-    this.load.spritesheet('spritesheet'
-    , 'assets/img/grass_tileset_16x16.png'
-    , LEVEL_CONFIG.TILE_WIDTH_PIXELS
-    , LEVEL_CONFIG.TILE_HEIGHT_PIXELS);
-*/
-
-    //console.log('preloadSpriteSheet');
-
-    this.load.spritesheet('spritesheet', 
-        'assets/img/grass_tileset_16x16.png',
-        { frameWidth: 16, frameHeight: 16 }
-    );
 }
 
 var preloadBlank = function() {
