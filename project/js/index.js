@@ -40,30 +40,6 @@ const LEVEL_CONFIG = {
 
 var game;
 
-/*
-var generateRandomInteger = function(min , max) {
-
-    return Math.floor(Math.random() * (max-min) + min);
-}
-
-var weightedRandomNumber = function(weightedIndexes) {
-
-    var sum = weightedIndexes.reduce((acc, val) => acc + val.weight, 0);
-    const rnd = generateRandomInteger(0, sum);
-
-    var accumulator = 0;
-    var index = 0;
-
-    do {
-        
-        accumulator += weightedIndexes[index++].weight;
-    } 
-    while (accumulator < rnd);
-
-    return weightedIndexes[--index].index;
-}
-*/
-
 window.onload = function() {
 
     var config = {
@@ -303,37 +279,40 @@ var createSpriteSheet = function() {
 
     //console.log('createSpriteSheet');
 
-    var m = LEVEL_CONFIG.TILES_MAPPING.LIGHT_GRASS_LAYER;
-    var bottom = LEVEL_CONFIG.LEVEL_HEIGHT_TILES - 1;
-    var right = LEVEL_CONFIG.LEVEL_WIDTH_TILES - 1;
+    const grass = LEVEL_CONFIG.TILES_MAPPING.LIGHT_GRASS_LAYER;
+    const bottom = LEVEL_CONFIG.LEVEL_HEIGHT_TILES - 1;
+    const right = LEVEL_CONFIG.LEVEL_WIDTH_TILES - 1;
+    const topLeft = 0;
 
-    const selector = new weightedRandomSelector(m.MIDDLE_TILE);
+    const rndTileSelector = new weightedRandomSelector(grass.MIDDLE_TILE);
 
-    for (let row = 0; row < LEVEL_CONFIG.LEVEL_WIDTH_TILES; row++) {
-        for (let col = 0; col < LEVEL_CONFIG.LEVEL_HEIGHT_TILES; col++) {
+    for (let row = topLeft; row <= right; row++) {
+        for (let col = topLeft; col <= bottom; col++) {
             
-            const point = getTilePosition(row, col);
+            const pos = getTilePosition(row, col);
+            var tile = 0
 
             // corners
-            if (row === 0 && col === 0)
-                this.add.sprite(point.x, point.y, "spritesheet", m.TOP_LEFT_TILE);
-            else if (row === 0 && col === bottom)
-                this.add.sprite(point.x, point.y, "spritesheet", m.TOP_RIGHT_TILE);
-            else if (row === 0)
-                this.add.sprite(point.x, point.y, "spritesheet", m.TOP_TILE);
-            else if (row === right && col === 0)
-                this.add.sprite(point.x, point.y, "spritesheet", m.BOTTOM_LEFT_TILE);
+            if (row === topLeft && col === topLeft)
+                tile = grass.TOP_LEFT_TILE;
+            else if (row === topLeft && col === bottom)
+                tile = grass.TOP_RIGHT_TILE;
+            else if (row === topLeft)
+                tile = grass.TOP_TILE;
+            else if (row === right && col === topLeft)
+                tile = grass.BOTTOM_LEFT_TILE;
             else if (row === right && col === bottom)
-                this.add.sprite(point.x, point.y, "spritesheet", m.BOTTOM_RIGHT_TILE);
+                tile = grass.BOTTOM_RIGHT_TILE;
             else if (row === right)
-                this.add.sprite(point.x, point.y, "spritesheet", m.BOTTOM_TILE);
-            else if (col === 0)
-                this.add.sprite(point.x, point.y, "spritesheet", m.LEFT_TILE);
+                tile = grass.BOTTOM_TILE;
+            else if (col === topLeft)
+                tile = grass.LEFT_TILE;
             else if (col === bottom)
-                this.add.sprite(point.x, point.y, "spritesheet", m.RIGHT_TILE);
-            else
-                this.add.sprite(point.x, point.y, "spritesheet", selector.getNext());
-                //this.add.sprite(point.x, point.y, "spritesheet", weightedRandomNumber(m.MIDDLE_TILE));
+                tile = grass.RIGHT_TILE;
+            else tile = rndTileSelector.getNext();
+                //this.add.sprite(pos.x, pos.y, "spritesheet", weightedRandomNumber(grass.MIDDLE_TILE));
+
+            this.add.sprite(pos.x, pos.y, LEVEL_CONFIG.SPRITESHEET.NAME, tile);
         }
     }
 }
